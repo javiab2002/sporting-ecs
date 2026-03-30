@@ -1,7 +1,5 @@
 pipeline {
 agent any
-
-```
 environment {
     DOCKER_IMAGE = "javiab2002/sporting-gijon"
 }
@@ -43,7 +41,5 @@ stages {
         }
     }
 }
-```
-
 }
 
