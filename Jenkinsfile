@@ -6,12 +6,6 @@ environment {
 
 stages {
 
-    stage('Clonar repo') {
-        steps {
-            git 'https://github.com/javiab2002/sporting-ecs.git'
-        }
-    }
-
     stage('Build Docker') {
         steps {
             dir('app') {
