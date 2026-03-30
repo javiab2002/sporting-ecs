@@ -1,5 +1,6 @@
 pipeline {
 agent any
+
 environment {
     DOCKER_IMAGE = "javiab2002/sporting-gijon"
 }
@@ -30,10 +31,18 @@ stages {
 
     stage('Deploy Terraform') {
         steps {
-            sh 'terraform init'
-            sh 'terraform apply -auto-approve'
+            withCredentials([
+                string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
+            ]) {
+                sh '''
+                export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                terraform init
+                terraform apply -auto-approve
+                '''
+            }
         }
     }
-}
-}
 
+}
