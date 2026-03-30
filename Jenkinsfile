@@ -29,21 +29,27 @@ stages {
         }
     }
 
-    stage('Deploy Terraform') {
-        steps {
-            withCredentials([
-                string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
-                string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')
-            ]) {
-                sh '''
-                export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                terraform init
-                terraform apply -auto-approve
-                '''
-            }
-        }
-    }
+ 
+stage('Deploy Terraform') {
+steps {
+withCredentials([
+string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY'),
+string(credentialsId: 'aws-session-token', variable: 'AWS_SESSION_TOKEN')
+]) {
+sh '''
+export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+export AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN
+export AWS_DEFAULT_REGION=us-east-1
+terraform init
+terraform apply -auto-approve
+'''
+}
+}
+}
+
+
 
  }
 }
