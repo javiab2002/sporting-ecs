@@ -115,7 +115,7 @@ resource "aws_ecs_task_definition" "task" {
       #image = "339736979063.dkr.ecr.us-east-1.amazonaws.com/sporting-gijon:latest"
       #image = "TU_USUARIO/sporting-gijon:latest"
       #image = "javiab2002/sporting-gijon:v1"
-      image = "javiab2002/sporting-gijon:v2"	
+      image = "javiab2002/sporting-gijon:v3"	
       essential = true
 
       portMappings = [
